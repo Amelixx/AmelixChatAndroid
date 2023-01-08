@@ -1,6 +1,7 @@
 package com.example.amelixxyz;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
@@ -17,13 +18,20 @@ import android.webkit.WebViewClient;
 
 public class MainActivity extends AppCompatActivity {
     private static Context context;
+
     private WebView webView;
+    private PersistentData data;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Create a new ViewModel the first time the onCreate method is called.
+        // After the first time this view model stays persistent.
+        this.data = new ViewModelProvider(this).get(PersistentData.class);
+        if (data.currentUrl == null) data.currentUrl = "https://amelix.xyz";
 
         MainActivity.context = getApplicationContext();
 
@@ -32,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new MyWebViewClient());
-        webView.loadUrl("https://amelix.xyz");
+
+        webView.loadUrl(data.currentUrl);
 
         createNotificationChannel();
 
@@ -48,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             if (Uri.parse(url).getHost().contains("amelix.xyz")) {
+                data.currentUrl = url;
                 return false;
             }
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
