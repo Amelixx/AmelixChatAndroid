@@ -47,4 +47,5 @@ dependencies {
 
     // TODO: Add the dependencies for any other Firebase products you want to use
     // See https://firebase.google.com/docs/android/setup#available-libraries
+    implementation 'com.google.firebase:firebase-messaging'
 }

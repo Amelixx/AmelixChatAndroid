@@ -16,10 +16,14 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
+
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
     private static Context context;
@@ -55,6 +59,19 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
 
         // Get the current firebase token for push notifications
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.w("Firebase", "Fetching FCM registration token failed", task.getException());
+                return;
+            }
+
+            // Get new FCM registration token
+            String token = task.getResult();
+
+            // Log and toast
+            Log.d("Firebase", "Current firebase app token: " + token);
+            Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+        });
     }
 
     public static Context getAppContext() {
