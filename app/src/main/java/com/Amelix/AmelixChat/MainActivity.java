@@ -1,13 +1,18 @@
 package com.Amelix.AmelixChat;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         // Create a new ViewModel the first time the onCreate method is called.
         // After the first time this view model stays persistent.
         this.data = new ViewModelProvider(this).get(PersistentData.class);
-        if (data.currentUrl == null) data.currentUrl = "https://amelix.xyz";
+        if (data.currentUrl == null) data.currentUrl = "https://android.amelix.xyz";
 
         MainActivity.context = getApplicationContext();
 
@@ -41,16 +46,15 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new MyWebViewClient());
 
-        webView.loadUrl(data.currentUrl);
-
-        createNotificationChannel();
-
         // Add a JavaScript interface to allow the javascript on the page to interact with the android app
         webView.addJavascriptInterface(new WebAppInterface(), "Android");
 
+        webView.loadUrl(data.currentUrl);
+
+        askNotificationPermission();
+        createNotificationChannel();
 
         // Get the current firebase token for push notifications
-
     }
 
     public static Context getAppContext() {
@@ -94,5 +98,33 @@ public class MainActivity extends AppCompatActivity {
 
         // If there is no history or it wasn't the back button, just default to the default android system behaviour
         return super.onKeyDown(keyCode, event);
+    }
+
+    // Activity launcher to ask user to accept push notifications
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    // FCM SDK (and your app) can post notifications.
+                } else {
+                    // TODO: Inform user that that your app will not show notifications.
+                }
+            });
+
+    private void askNotificationPermission() {
+        // This is only necessary for API level >= 33 (TIRAMISU)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                // FCM SDK (and your app) can post notifications.
+            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+                // TODO: display an educational UI explaining to the user the features that will be enabled
+                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
+                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
+                //       If the user selects "No thanks," allow the user to continue without notifications.
+            } else {
+                // Directly ask for the permission
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+        }
     }
 }

@@ -26,8 +26,25 @@
                 android:value="" />
         </activity>
 
+        <service
+            android:name=".java.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Opt out of Google metrics-->
         <meta-data android:name="android.webkit.WebView.MetricsOptOut"
             android:value="true" />
-    </application>
 
+        <!-- Set default icon used when no icon is specified for incoming messages. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/rocks_foreground" />
+        <!-- Set default colour used when no colour is specified for incoming messages. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/default_notification" />
+    </application>
 </manifest>

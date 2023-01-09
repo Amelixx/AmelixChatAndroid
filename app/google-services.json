@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "553489691571",
+    "project_id": "amelixchat",
+    "storage_bucket": "amelixchat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553489691571:android:98bb6fa6eed0a370f751c6",
+        "android_client_info": {
+          "package_name": "com.Amelix.AmelixChat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553489691571-79g3f94elqrldjjj0ppba8a9o27pi7s0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy5ydGwXV7D1xVtKMOp6fNurvfQXJMRyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553489691571-79g3f94elqrldjjj0ppba8a9o27pi7s0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

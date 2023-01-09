@@ -5,12 +5,10 @@ pluginManagement {
         mavenCentral()
     }
 }
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
+
+// Might need this stackoverflow answer eventually (not the accepted answer, one below it) because
+// I removed something here that might be important in future
+// https://stackoverflow.com/questions/69163511/build-was-configured-to-prefer-settings-repositories-over-project-repositories-b
+
 rootProject.name = "Amelix.xyz"
 include ':app'
