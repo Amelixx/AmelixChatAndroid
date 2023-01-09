@@ -1,4 +1,4 @@
-package com.AmelixChat;
+package com.Amelix.AmelixChat;
 
 import android.webkit.JavascriptInterface;
 

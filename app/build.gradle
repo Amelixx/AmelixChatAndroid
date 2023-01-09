@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.AmelixChat'
+    namespace 'com.Amelix.AmelixChat'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.AmelixChat"
+        applicationId "com.Amelix.AmelixChat"
         minSdk 21
         targetSdk 32
         versionCode 1

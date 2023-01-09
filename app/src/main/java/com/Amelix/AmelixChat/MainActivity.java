@@ -1,4 +1,4 @@
-package com.AmelixChat;
+package com.Amelix.AmelixChat;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
