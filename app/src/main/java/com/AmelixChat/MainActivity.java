@@ -1,4 +1,4 @@
-package com.example.amelixxyz;
+package com.AmelixChat;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -47,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Add a JavaScript interface to allow the javascript on the page to interact with the android app
         webView.addJavascriptInterface(new WebAppInterface(), "Android");
+
+
+        // Get the current firebase token for push notifications
+
     }
 
     public static Context getAppContext() {

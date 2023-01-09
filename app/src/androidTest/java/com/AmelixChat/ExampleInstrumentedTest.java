@@ -1,4 +1,4 @@
-package com.example.amelixxyz;
+package com.AmelixChat;
 
 import android.content.Context;
 
