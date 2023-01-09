@@ -16,7 +16,7 @@ public class Notifications {
                 .setContentIntent(intent)
 
                 // Hardcoded atm, don't understand enough of them to make them part of the function yet
-                .setSmallIcon(android.R.drawable.sym_call_outgoing)
+                .setSmallIcon(R.mipmap.rocks)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);

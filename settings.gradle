@@ -10,5 +10,5 @@ pluginManagement {
 // I removed something here that might be important in future
 // https://stackoverflow.com/questions/69163511/build-was-configured-to-prefer-settings-repositories-over-project-repositories-b
 
-rootProject.name = "Amelix.xyz"
+rootProject.name = "AmelixChat"
 include ':app'
