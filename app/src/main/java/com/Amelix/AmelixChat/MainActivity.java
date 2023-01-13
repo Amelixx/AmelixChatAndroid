@@ -25,6 +25,9 @@ import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+
 public class MainActivity extends AppCompatActivity {
     private static Context context;
 
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         this.data = new ViewModelProvider(this).get(PersistentData.class);
         if (data.currentUrl == null) data.currentUrl = "https://android.amelix.xyz";
 
-        MainActivity.context = getApplicationContext();
+        context = getApplicationContext();
 
         this.webView = findViewById(R.id.webView);
         WebSettings webSettings = webView.getSettings();
@@ -50,8 +53,9 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new MyWebViewClient());
 
+        WebAppInterface webAppInterface = new WebAppInterface();
         // Add a JavaScript interface to allow the javascript on the page to interact with the android app
-        webView.addJavascriptInterface(new WebAppInterface(), "Android");
+        webView.addJavascriptInterface(webAppInterface, "Android");
 
         webView.loadUrl(data.currentUrl);
 
@@ -67,15 +71,19 @@ public class MainActivity extends AppCompatActivity {
 
             // Get new FCM registration token
             String token = task.getResult();
+            webAppInterface.token = token;
 
             // Log and toast
             Log.d("Firebase", "Current firebase app token: " + token);
-            Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
         });
     }
 
     public static Context getAppContext() {
         return MainActivity.context;
+    }
+
+    public static void toast(String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     private class MyWebViewClient extends WebViewClient {
