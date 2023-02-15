@@ -19,8 +19,5 @@ public class Firebase extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String token) {
         Log.d("Firebase", "Refreshed token: " + token);
-
-        // TODO: Send "token" to amelix.xyz server
-        // sendRegistrationToServer(token);
     }
 }

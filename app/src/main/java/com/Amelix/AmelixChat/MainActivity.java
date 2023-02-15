@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         // Create a new ViewModel the first time the onCreate method is called.
         // After the first time this view model stays persistent.
         this.data = new ViewModelProvider(this).get(PersistentData.class);
-        if (data.currentUrl == null) data.currentUrl = "https://android.amelix.xyz";
+        if (data.currentUrl == null) data.currentUrl = "https://chat.amelix.xyz";
 
         context = getApplicationContext();
 
@@ -89,13 +89,16 @@ public class MainActivity extends AppCompatActivity {
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (Uri.parse(url).getHost().contains("amelix.xyz")) {
-                data.currentUrl = url;
-                return false;
-            }
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(intent);
-            return true;
+            return false;
+            // Keeping all this here for archival purposes but for the purpose of a single page application
+            // this just isn't needed, and I want in-app links to go to the external browser.
+//            if (Uri.parse(url).getHost().contains("amelix.xyz")) {
+//                data.currentUrl = url;
+//                return false;
+//            }
+//            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+//            startActivity(intent);
+//            return true;
         }
     }
 

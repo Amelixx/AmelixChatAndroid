@@ -1,7 +1,6 @@
 package com.Amelix.AmelixChat;
 
 import android.webkit.JavascriptInterface;
-import android.widget.Toast;
 
 public class WebAppInterface {
     public String token;
@@ -11,7 +10,7 @@ public class WebAppInterface {
         try {
             Response res = Network.request(
                     "PUT",
-                    "https://api.phoenix.amelix.xyz/users/me",
+                    "https://api-phoenix.amelix.xyz/users/me",
                     "{\"firebaseToken\": \""+ token +"\"}",
                     authToken
             );
@@ -21,7 +20,6 @@ public class WebAppInterface {
             else {
                 MainActivity.toast("Token failed to send ("+res.statusCode+")");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             MainActivity.toast("Token sending failed");
